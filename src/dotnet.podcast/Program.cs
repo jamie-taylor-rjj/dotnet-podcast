@@ -1,14 +1,14 @@
 ﻿using CommandLine;
-using dotnet.podcasts.handlers;
-using dotnet.podcasts.options;
+using dotnet.podcast.handlers;
+using dotnet.podcast.options;
 using Serilog;
 
-namespace dotnet.podcasts;
+namespace dotnet.podcast;
 
 public class Program
 {
     // This is suboptimal, but it'll do for now
-    private const string AppName = "dotnet.podcasts";
+    private const string AppName = "dotnet.podcast";
 
     public static int Main(string[] args)
     {

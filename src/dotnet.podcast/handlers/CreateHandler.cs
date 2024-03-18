@@ -1,7 +1,7 @@
-using dotnet.podcasts.options;
+using dotnet.podcast.options;
 using Serilog;
 
-namespace dotnet.podcasts.handlers;
+namespace dotnet.podcast.handlers;
 
 public class CreateHandler
 {

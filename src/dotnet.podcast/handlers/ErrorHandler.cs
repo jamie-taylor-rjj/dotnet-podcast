@@ -1,7 +1,7 @@
 using CommandLine;
 using Serilog;
 
-namespace dotnet.podcasts.handlers;
+namespace dotnet.podcast.handlers;
 
 public class ErrorHandler
 {
