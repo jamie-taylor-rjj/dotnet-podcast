@@ -421,3 +421,9 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,dotnetcore
+
+# MAC OS Finder
+.DS_STORE
+
+# Rider
+.idea

@@ -14,6 +14,13 @@ A cross platform .NET global tool `dotnet-podcast` for managing files involved i
 
 &ast; = Licensing is out of scope for this repo, but you may be eligible for a Community (free) subscription. See [https://visualstudio.microsoft.com/vs/pricing/](https://visualstudio.microsoft.com/subscriptions/) for details.
 
+## Libraries Used
+
+This project would not be possible without the following libraries. Please consider checking them out and showing them some support:
+
+- [commandlineparser/commandline](https://github.com/commandlineparser/commandline)
+- [System.Io.Abstractions](https://www.nuget.org/packages/System.IO.Abstractions)
+
 ## Building The Code
 
 Assuming that you have the above requirements installed, use either your IDE of choice to build the code, or run the following CLI command `dotnet build` in the root of the repo (i.e. where this README is found).
