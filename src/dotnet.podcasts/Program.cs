@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using dotnet.podcasts.handlers;
 using dotnet.podcasts.options;
 using Serilog;
 
@@ -8,16 +9,6 @@ public class Program
 {
     // This is suboptimal, but it'll do for now
     private const string AppName = "dotnet.podcasts";
-    public static int RunAddAndReturnExitCode(CreateOptions opts)
-    {
-        return 0;
-    }
-
-    public static int HandleErrors(IEnumerable<Error> errors)
-    {
-        // TODO log all the errors
-        return 1;
-    }
 
     public static int Main(string[] args)
     {
@@ -31,10 +22,11 @@ public class Program
 
         try
         {
+            // TODO: dependency injection for all handlers; because new is glue
             return Parser.Default.ParseArguments<CreateOptions>(args)
                 .MapResult(
-                    (CreateOptions opts) => RunAddAndReturnExitCode(opts),
-                    errs => HandleErrors(errs));
+                    (CreateOptions opts) => new CreateHandler().HandleCreate(opts),
+                    errs => new ErrorHandler().HandleErrors(errs));
         }
         catch (Exception ex)
         {
