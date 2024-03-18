@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3E205DA5-AF79-438A-92C9-D18A590023F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet.podcasts.console", "src\dotnet.podcasts.console\dotnet.podcasts.console.csproj", "{934F048F-6226-42E0-93D2-15F4D6442EC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotnet.podcasts", "src\dotnet.podcasts\dotnet.podcasts.csproj", "{934F048F-6226-42E0-93D2-15F4D6442EC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
