@@ -1,9 +1,3 @@
-using System.IO.Abstractions.TestingHelpers;
-using dotnet.podcast.handlers;
-using dotnet.podcast.options;
-using Microsoft.Extensions.Logging;
-using NSubstitute;
-
 namespace dotnet.podcast.tests;
 
 public class CreateHandlerTests
