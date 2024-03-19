@@ -16,29 +16,26 @@ public class Program
             .WriteTo.Console()
             .WriteTo.File($"{AppName}.log", rollingInterval: RollingInterval.Day)
             .CreateLogger();
-        
-        log.Information("{appname} has started", AppName);
-        
-        log.Information("Setting up service collection");
-
-        var services = new ServiceCollection()
-            .AddSingleton<ICustomParser, CustomParser>()
-            .AddSingleton<ICreateHandler, CreateHandler>()
-            .AddSingleton<IErrorHandler, ErrorHandler>()
-            .AddTransient<IFileSystem, FileSystem>()
-            .AddLogging(conf => conf.AddSerilog())
-            .BuildServiceProvider();
-
-        var parser = services.GetService<ICustomParser>();
-        if (parser is null)
-        {
-            throw new ApplicationException($"Couldn't instantiate instance of {nameof(ICustomParser)}");
-        }
-        
-        log.Information("Using args {arguments}", args);
-
         try
         {
+            log.Information("{appname} has started", AppName);
+
+            log.Information("Setting up service collection");
+
+            var services = new ServiceCollection()
+                .AddSingleton<ICustomParser, CustomParser>()
+                .AddSingleton<ICreateHandler, CreateHandler>()
+                .AddSingleton<IErrorHandler, ErrorHandler>()
+                .AddTransient<IFileSystem, FileSystem>()
+                .AddLogging(conf => conf.AddSerilog())
+                .BuildServiceProvider();
+
+            var parser = services.GetService<ICustomParser>();
+            if (parser is null)
+            {
+                throw new ApplicationException($"Couldn't instantiate instance of {nameof(ICustomParser)}");
+            }
+
             return parser.Parse(args);
         }
         catch (Exception ex)
