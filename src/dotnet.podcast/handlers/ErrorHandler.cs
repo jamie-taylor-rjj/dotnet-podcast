@@ -3,10 +3,14 @@ using Serilog;
 
 namespace dotnet.podcast.handlers;
 
-public class ErrorHandler
+public class ErrorHandler : IErrorHandler
 {
-    // TODO replace with injected logger
-    private readonly ILogger _logger = Log.ForContext<ErrorHandler>();
+    private readonly ILogger _logger;
+
+    public ErrorHandler(ILogger logger)
+    {
+        _logger = logger;
+    }
 
     public int HandleErrors(IEnumerable<Error> errors)
     {

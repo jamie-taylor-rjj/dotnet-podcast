@@ -1,6 +1,6 @@
-﻿using CommandLine;
+﻿using System.IO.Abstractions;
 using dotnet.podcast.handlers;
-using dotnet.podcast.options;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace dotnet.podcast;
@@ -18,15 +18,28 @@ public class Program
             .CreateLogger();
         
         log.Information("{appname} has started", AppName);
+        
+        log.Information("Setting up service collection");
+
+        var services = new ServiceCollection()
+            .AddSingleton<ICustomParser, CustomParser>()
+            .AddSingleton<ICreateHandler, CreateHandler>()
+            .AddSingleton<IErrorHandler, ErrorHandler>()
+            .AddTransient<IFileSystem, FileSystem>()
+            .AddLogging(conf => conf.AddSerilog())
+            .BuildServiceProvider();
+
+        var parser = services.GetService<ICustomParser>();
+        if (parser is null)
+        {
+            throw new ApplicationException($"Couldn't instantiate instance of {nameof(ICustomParser)}");
+        }
+        
         log.Information("Using args {arguments}", args);
 
         try
         {
-            // TODO: dependency injection for all handlers; because new is glue
-            return Parser.Default.ParseArguments<CreateOptions>(args)
-                .MapResult(
-                    (CreateOptions opts) => new CreateHandler().HandleCreate(opts),
-                    errs => new ErrorHandler().HandleErrors(errs));
+            return parser.Parse(args);
         }
         catch (Exception ex)
         {
