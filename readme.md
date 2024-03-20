@@ -2,6 +2,8 @@
 
 A cross platform .NET global tool `dotnet-podcast` for managing files involved in recording, editing, and publishing audio-only podcasts
 
+[![Build repo](https://github.com/jamie-taylor-rjj/dotnet-podcast/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/jamie-taylor-rjj/dotnet-podcast/actions/workflows/dotnet.yml)
+
 ## Build Requirements
 
 - [.NET SDK vLatest](https://get.dot.net/)
