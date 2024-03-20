@@ -11,10 +11,9 @@ on:
   # When a change is pushed to main branch
   push:
     branches:
-      - main
-  
-  paths-ignore:
-    - '**/*.md'
+      - main  
+    paths-ignore:
+      - '**/*.md'
 
 jobs:
 
