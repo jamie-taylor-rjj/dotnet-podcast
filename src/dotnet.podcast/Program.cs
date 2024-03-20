@@ -7,8 +7,7 @@ namespace dotnet.podcast;
 
 public class Program
 {
-    // This is suboptimal, but it'll do for now
-    private const string AppName = "dotnet.podcast";
+    private static readonly string AppName = typeof(Program).Namespace!;
 
     public static async Task Main(string[] args)
     {
@@ -19,7 +18,7 @@ public class Program
         
         try
         {
-            Log.Information("{appname} has started", AppName);
+            Log.Information("{AppName} has started", AppName);
 
             Log.Information("Setting up service collection");
 
