@@ -4,5 +4,5 @@ namespace dotnet.podcast.handlers;
 
 public interface ICreateHandler
 {
-    int HandleCreate(CreateOptions opt);
+    Task HandleCreate(CreateOptions opt);
 }

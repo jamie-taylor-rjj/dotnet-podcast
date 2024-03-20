@@ -11,13 +11,12 @@ public class ErrorHandler : IErrorHandler
         _logger = logger;
     }
 
-    public int HandleErrors(IEnumerable<Error> errors)
+    public async Task HandleErrors(IEnumerable<Error> errors)
     {
         _logger.LogError("Errors encountered.");
         foreach (var er in errors.ToList())
         {
             _logger.LogError("Error: {er}", er);
         }
-        return 1;
     }
 }

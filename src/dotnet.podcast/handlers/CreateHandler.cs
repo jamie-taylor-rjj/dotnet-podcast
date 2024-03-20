@@ -18,7 +18,7 @@ public class CreateHandler : ICreateHandler
         _fileSystem = fileSystem;
     }
 
-    public int HandleCreate(CreateOptions opt)
+    public async Task HandleCreate(CreateOptions opt)
     {
         _logger.LogInformation("Creating project file with name {FileName}", opt.FileName);
 
@@ -31,7 +31,7 @@ public class CreateHandler : ICreateHandler
             {
                 _logger.LogInformation("{overwrite} field set to false. File not overwritten; Exiting",
                     nameof(opt.Overwrite));
-                return -1;
+                return;
             }
         }
 
@@ -53,9 +53,7 @@ public class CreateHandler : ICreateHandler
         
         _logger.LogInformation("Project serialized as {contents}", contents);
 
-        _fileSystem.File.WriteAllText(opt.FileName, contents);
+        await _fileSystem.File.WriteAllTextAsync(opt.FileName, contents);
         _logger.LogInformation("Written project out to {FileName}", opt.FileName);
-        
-        return 0;
     }
 }

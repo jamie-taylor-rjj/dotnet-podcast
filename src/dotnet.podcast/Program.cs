@@ -10,7 +10,7 @@ public class Program
     // This is suboptimal, but it'll do for now
     private const string AppName = "dotnet.podcast";
 
-    public static int Main(string[] args)
+    public static async Task Main(string[] args)
     {
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
@@ -37,7 +37,7 @@ public class Program
                 throw new ApplicationException($"Couldn't instantiate instance of {nameof(ICustomParser)}");
             }
 
-            return parser.Parse(args);
+            await parser.Parse(args);
         }
         catch (Exception ex)
         {
@@ -47,7 +47,5 @@ public class Program
         {
             Log.CloseAndFlush();
         }
-
-        return -1;
     }
 }

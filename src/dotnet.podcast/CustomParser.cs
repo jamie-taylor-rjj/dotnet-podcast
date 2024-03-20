@@ -19,14 +19,14 @@ public class CustomParser : ICustomParser
         _logger = logger;
     }
 
-    public int Parse(string[] args)
+    public async Task Parse(string[] args)
     {
         _logger.LogInformation("Using args {arguments}", args);
         
-        return Parser.Default.ParseArguments<CreateOptions>(args)
+        await Parser.Default.ParseArguments<CreateOptions>(args)
             .MapResult(
                 (CreateOptions opts) => _createHandler.HandleCreate(opts),
-                errs => _errorHandler.HandleErrors(errs)
+                errs => Task.Run(() => _errorHandler.HandleErrors(errs))
             );
     }
 }

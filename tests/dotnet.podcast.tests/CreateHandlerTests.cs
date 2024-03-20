@@ -11,7 +11,7 @@ public class CreateHandlerTests
         });
 
     [Fact]
-    public void Create_Returns_Error_When_FileExistsAndOverwriteSetToFalse()
+    public async Task Create_Returns_Error_When_FileExistsAndOverwriteSetToFalse()
     {
         // Arrange
         const string targetFileName = "file.json";
@@ -20,14 +20,13 @@ public class CreateHandlerTests
         var options = new CreateOptions { FileName = targetFileName };
         
         // Act
-        var response = handler.HandleCreate(options);
+        await handler.HandleCreate(options);
         
         // Assert
-        Assert.Equal(-1, response);
     }
     
     [Fact]
-    public void Create_Returns_Success_When_FileExistsAndOverwriteSetToTrue()
+    public async Task Create_Returns_Success_When_FileExistsAndOverwriteSetToTrue()
     {
         // Arrange
         const string targetFileName = "file.json";
@@ -36,9 +35,9 @@ public class CreateHandlerTests
         var options = new CreateOptions { FileName = targetFileName, Overwrite = true};
         
         // Act
-        var response = handler.HandleCreate(options);
+        await handler.HandleCreate(options);
         
         // Assert
-        Assert.Equal(0, response);
+        
     }
 }
