@@ -18,7 +18,6 @@ on:
 jobs:
 
   net6:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -42,7 +41,7 @@ jobs:
         run: dotnet test --no-restore --verbosity normal
 
   net7:
-
+    needs: net6
     runs-on: ubuntu-latest
 
     steps:
@@ -66,7 +65,7 @@ jobs:
         run: dotnet test --no-restore --verbosity normal
 
   net8:
-
+    needs: net7
     runs-on: ubuntu-latest
 
     steps:
