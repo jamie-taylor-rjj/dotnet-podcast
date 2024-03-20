@@ -1,3 +1,4 @@
+using Ardalis.GuardClauses;
 using CommandLine;
 using dotnet.podcast.handlers;
 using dotnet.podcast.options;
@@ -21,6 +22,8 @@ public class CustomParser : ICustomParser
 
     public async Task Parse(string[] args)
     {
+        Guard.Against.Null(args);
+        
         _logger.LogInformation("Using args {arguments}", args);
         
         await Parser.Default.ParseArguments<CreateOptions>(args)

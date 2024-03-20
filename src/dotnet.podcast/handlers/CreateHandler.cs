@@ -1,5 +1,6 @@
 using System.IO.Abstractions;
 using System.Text.Json;
+using Ardalis.GuardClauses;
 using dotnet.podcast.models;
 using dotnet.podcast.options;
 
@@ -20,6 +21,8 @@ public class CreateHandler : ICreateHandler
 
     public async Task HandleCreate(CreateOptions opt)
     {
+        Guard.Against.Null(opt);
+        
         _logger.LogInformation("Creating project file with name {FileName}", opt.FileName);
 
         if (_fileSystem.File.Exists(opt.FileName))
