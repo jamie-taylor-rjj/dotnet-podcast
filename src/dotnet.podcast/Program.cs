@@ -30,12 +30,14 @@ public class Program
                 .AddLogging(conf => conf.AddSerilog())
                 .BuildServiceProvider();
 
+            Log.Information("Attempting to get {ServiceName} from service collection", nameof(ICustomParser));
             var parser = services.GetService<ICustomParser>();
             if (parser is null)
             {
                 throw new ApplicationException($"Couldn't instantiate instance of {nameof(ICustomParser)}");
             }
 
+            Log.Information("Found {ServiceName} from service collection", nameof(ICustomParser));
             await parser.Parse(args);
         }
         catch (Exception ex)

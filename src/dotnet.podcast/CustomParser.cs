@@ -24,7 +24,7 @@ public class CustomParser : ICustomParser
     {
         Guard.Against.Null(args);
         
-        _logger.LogInformation("Using args {arguments}", args);
+        _logger.LogInformation("Parsing args {arguments}", args);
         
         await Parser.Default.ParseArguments<CreateOptions>(args)
             .MapResult(
