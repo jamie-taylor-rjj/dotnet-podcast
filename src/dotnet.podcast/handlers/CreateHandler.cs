@@ -12,15 +12,18 @@ public class CreateHandler : ICreateHandler
     private readonly ILogger<CreateHandler> _logger;
     private readonly IFileSystem _fileSystem;
     private readonly IJsonSerializerHelpers _jsonSerializerHelpers;
+    private readonly IProjectBuilder _projectBuilder;
 
     public CreateHandler(
         ILogger<CreateHandler> logger,
         IFileSystem fileSystem,
-        IJsonSerializerHelpers jsonSerializerHelpers)
+        IJsonSerializerHelpers jsonSerializerHelpers,
+        IProjectBuilder projectBuilder)
     {
         _logger = logger;
         _fileSystem = fileSystem;
         _jsonSerializerHelpers = jsonSerializerHelpers;
+        _projectBuilder = projectBuilder;
     }
 
     public async Task HandleCreate(CreateOptions opt)
@@ -47,7 +50,7 @@ public class CreateHandler : ICreateHandler
             opt.FileName,
             nameof(Project.ProjectName));
 
-        var project = ProjectBuilder.WithName(opt.FileName).Build();
+        var project = _projectBuilder.WithName(opt.FileName);
 
         await _fileSystem.File.WriteAllTextAsync(opt.FileName,
             _jsonSerializerHelpers.Serialise(project, nameof(Project)));

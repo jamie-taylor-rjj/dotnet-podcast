@@ -1,4 +1,5 @@
 ﻿using System.IO.Abstractions;
+using dotnet.podcast.builders;
 using dotnet.podcast.handlers;
 using dotnet.podcast.helpers;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,7 @@ public class Program
                 .AddSingleton<ICustomParser, CustomParser>()
                 .AddSingleton<IJsonSerializerHelpers, JsonSerializerHelpers>() 
                 .AddSingleton<IJsonSerializerOptionsHelpers, JsonSerializerOptionsHelpers>()
+                .AddSingleton<IProjectBuilder, ProjectBuilder>()
                 .AddSingleton<ICreateHandler, CreateHandler>()
                 .AddSingleton<IErrorHandler, ErrorHandler>()
                 .AddTransient<IFileSystem, FileSystem>()

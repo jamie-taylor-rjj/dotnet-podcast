@@ -1,20 +1,25 @@
+using Ardalis.GuardClauses;
 using dotnet.podcast.models;
 
 namespace dotnet.podcast.builders;
 
-public static class ProjectBuilder
+public class ProjectBuilder : IProjectBuilder
 {
-    private static Project _project = new Project();
+    private readonly ILogger<ProjectBuilder> _logger;
+    private readonly Project _project;
 
-    public static Project WithName(string targetName)
+    public ProjectBuilder(ILogger<ProjectBuilder> logger)
     {
-        _project.ProjectName = targetName;
-        return _project;
+        _logger = logger;
+        _project = new Project();
     }
 
-    public static Project Build(this Project project)
+    public Project WithName(string targetName)
     {
-        _project = project;
+        _logger.LogInformation("Setting {NameField} to {TargetName}", nameof(_project.ProjectName), targetName);
+        Guard.Against.NullOrWhiteSpace(targetName, $"{nameof(targetName)} cannot be null or empty");
+        
+        _project.ProjectName = targetName;
         return _project;
     }
 }

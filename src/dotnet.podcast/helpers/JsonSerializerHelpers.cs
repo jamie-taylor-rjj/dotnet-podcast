@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Ardalis.GuardClauses;
 
 namespace dotnet.podcast.helpers;
 
@@ -16,6 +17,7 @@ public class JsonSerializerHelpers : IJsonSerializerHelpers
 
     public string Serialise(object obj, string nameOfType)
     {
+        Guard.Against.Null(obj, parameterName: nameOfType);
         _logger.LogInformation("Serialising {NameOfType} to string", nameOfType);
         var contents = JsonSerializer.Serialize(obj, _serializerOptionsHelpers.Default());
         _logger.LogInformation("Project serialized as {contents}", contents);
