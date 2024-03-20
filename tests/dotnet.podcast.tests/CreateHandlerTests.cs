@@ -1,8 +1,11 @@
+using dotnet.podcast.helpers;
+
 namespace dotnet.podcast.tests;
 
 public class CreateHandlerTests
 {
     private readonly ILogger<CreateHandler> _mockedLogger = Substitute.For<ILogger<CreateHandler>>();
+    private readonly IJsonSerializerHelpers _mockedSerializer = Substitute.For<IJsonSerializerHelpers>();
 
     private static MockFileSystem GenerateFileSystem(string fileName) =>
         new(new Dictionary<string, MockFileData>
@@ -16,7 +19,7 @@ public class CreateHandlerTests
         // Arrange
         const string targetFileName = "file.json";
         var mockedFileSystem = GenerateFileSystem(targetFileName);
-        var handler = new CreateHandler(_mockedLogger, mockedFileSystem);
+        var handler = new CreateHandler(_mockedLogger, mockedFileSystem, _mockedSerializer);
         var options = new CreateOptions { FileName = targetFileName };
         
         // Act
@@ -31,7 +34,7 @@ public class CreateHandlerTests
         // Arrange
         const string targetFileName = "file.json";
         var mockedFileSystem = GenerateFileSystem(targetFileName);
-        var handler = new CreateHandler(_mockedLogger, mockedFileSystem);
+        var handler = new CreateHandler(_mockedLogger, mockedFileSystem, _mockedSerializer);
         var options = new CreateOptions { FileName = targetFileName, Overwrite = true};
         
         // Act

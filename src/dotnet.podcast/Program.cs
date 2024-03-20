@@ -1,5 +1,6 @@
 ﻿using System.IO.Abstractions;
 using dotnet.podcast.handlers;
+using dotnet.podcast.helpers;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -24,6 +25,8 @@ public class Program
 
             var services = new ServiceCollection()
                 .AddSingleton<ICustomParser, CustomParser>()
+                .AddSingleton<IJsonSerializerHelpers, JsonSerializerHelpers>() 
+                .AddSingleton<IJsonSerializerOptionsHelpers, JsonSerializerOptionsHelpers>()
                 .AddSingleton<ICreateHandler, CreateHandler>()
                 .AddSingleton<IErrorHandler, ErrorHandler>()
                 .AddTransient<IFileSystem, FileSystem>()

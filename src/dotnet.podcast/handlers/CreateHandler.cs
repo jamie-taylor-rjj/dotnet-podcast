@@ -1,6 +1,7 @@
 using System.IO.Abstractions;
-using System.Text.Json;
 using Ardalis.GuardClauses;
+using dotnet.podcast.builders;
+using dotnet.podcast.helpers;
 using dotnet.podcast.models;
 using dotnet.podcast.options;
 
@@ -10,13 +11,16 @@ public class CreateHandler : ICreateHandler
 {
     private readonly ILogger<CreateHandler> _logger;
     private readonly IFileSystem _fileSystem;
+    private readonly IJsonSerializerHelpers _jsonSerializerHelpers;
 
     public CreateHandler(
         ILogger<CreateHandler> logger,
-        IFileSystem fileSystem)
+        IFileSystem fileSystem,
+        IJsonSerializerHelpers jsonSerializerHelpers)
     {
         _logger = logger;
         _fileSystem = fileSystem;
+        _jsonSerializerHelpers = jsonSerializerHelpers;
     }
 
     public async Task HandleCreate(CreateOptions opt)
@@ -42,21 +46,12 @@ public class CreateHandler : ICreateHandler
             "Creating new project, using {FileName} as {ProjectName} field",
             opt.FileName,
             nameof(Project.ProjectName));
-        
-        var project = new Project { ProjectName = opt.FileName };
 
-        _logger.LogInformation("Serializing project to string");
-        var jsonOptions = new JsonSerializerOptions
-        {
-            AllowTrailingCommas = true,
-            WriteIndented = true,
-            PropertyNameCaseInsensitive = false
-        };
-        var contents = JsonSerializer.Serialize(project, jsonOptions);
-        
-        _logger.LogInformation("Project serialized as {contents}", contents);
+        var project = ProjectBuilder.WithName(opt.FileName).Build();
 
-        await _fileSystem.File.WriteAllTextAsync(opt.FileName, contents);
+        await _fileSystem.File.WriteAllTextAsync(opt.FileName,
+            _jsonSerializerHelpers.Serialise(project, nameof(Project)));
+        
         _logger.LogInformation("Written project out to {FileName}", opt.FileName);
     }
 }
