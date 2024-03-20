@@ -1,8 +1,5 @@
-﻿using System.IO.Abstractions;
-using dotnet.podcast.builders;
-using dotnet.podcast.handlers;
-using dotnet.podcast.helpers;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using dotnet.podcast.extensions;
 using Serilog;
 
 namespace dotnet.podcast;
@@ -25,13 +22,11 @@ public class Program
             Log.Information("Setting up service collection");
 
             var services = new ServiceCollection()
-                .AddSingleton<ICustomParser, CustomParser>()
-                .AddSingleton<IJsonSerializerHelpers, JsonSerializerHelpers>() 
-                .AddSingleton<IJsonSerializerOptionsHelpers, JsonSerializerOptionsHelpers>()
-                .AddSingleton<IProjectBuilder, ProjectBuilder>()
-                .AddSingleton<ICreateHandler, CreateHandler>()
-                .AddSingleton<IErrorHandler, ErrorHandler>()
-                .AddTransient<IFileSystem, FileSystem>()
+                .AddCustomParser()
+                .AddHelpers()
+                .AddBuilders()
+                .AddHandlers()
+                .AddFileSystem()
                 .AddLogging(conf => conf.AddSerilog())
                 .BuildServiceProvider();
 
