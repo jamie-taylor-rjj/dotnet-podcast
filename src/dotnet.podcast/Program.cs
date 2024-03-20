@@ -12,15 +12,16 @@ public class Program
 
     public static int Main(string[] args)
     {
-        using var log = new LoggerConfiguration()
+        Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
             .WriteTo.File($"{AppName}.log", rollingInterval: RollingInterval.Day)
             .CreateLogger();
+        
         try
         {
-            log.Information("{appname} has started", AppName);
+            Log.Information("{appname} has started", AppName);
 
-            log.Information("Setting up service collection");
+            Log.Information("Setting up service collection");
 
             var services = new ServiceCollection()
                 .AddSingleton<ICustomParser, CustomParser>()
@@ -40,7 +41,7 @@ public class Program
         }
         catch (Exception ex)
         {
-            log.Error(ex, "Something went wrong");
+            Log.Error(ex, "Something went wrong");
         }
         finally
         {
