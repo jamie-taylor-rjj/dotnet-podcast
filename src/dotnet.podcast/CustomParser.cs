@@ -29,7 +29,7 @@ public class CustomParser : ICustomParser
         await Parser.Default.ParseArguments<CreateOptions>(args)
             .MapResult(
                 (CreateOptions opts) => _createHandler.HandleCreate(opts),
-                errs => Task.Run(() => _errorHandler.HandleErrors(errs))
+                errs => Task.Run(() => _errorHandler.HandleErrors(errs.ToList()))
             );
     }
 }
