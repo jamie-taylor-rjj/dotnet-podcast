@@ -33,13 +33,13 @@ jobs:
           dotnet-version: '6.0.x'
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore dotnet-podcast.sln
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore dotnet-podcast.sln
         
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test --no-restore --verbosity normal dotnet-podcast.sln
 
   net7:
 
