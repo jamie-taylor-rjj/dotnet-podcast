@@ -20,6 +20,7 @@ This project would not be possible without the following libraries. Please consi
 
 - [commandlineparser/commandline](https://github.com/commandlineparser/commandline)
 - [System.Io.Abstractions](https://www.nuget.org/packages/System.IO.Abstractions)
+- [Ardalis.GuardClauses](https://github.com/ardalis/GuardClauses)
 
 ## Building The Code
 
