@@ -15,7 +15,7 @@ on:
 
 jobs:
 
-  Build and test with .NET 6.x:
+  net6:
 
     runs-on: ubuntu-latest
 
@@ -39,7 +39,7 @@ jobs:
       - name: Test
         run: dotnet test --no-restore --verbosity normal
 
-  Build and test with .NET 7.x:
+  net7:
 
     runs-on: ubuntu-latest
 
@@ -63,7 +63,7 @@ jobs:
       - name: Test
         run: dotnet test --no-restore --verbosity normal
 
-  Build and test with .NET 8.x:
+  net8:
 
     runs-on: ubuntu-latest
 
