@@ -29,7 +29,7 @@ public class CreateHandler : ICreateHandler
 
             if (!opt.Overwrite)
             {
-                _logger.LogInformation("{overwrite} field set to false. File not overwritten;  exiting",
+                _logger.LogInformation("{overwrite} field set to false. File not overwritten; Exiting",
                     nameof(opt.Overwrite));
                 return -1;
             }
