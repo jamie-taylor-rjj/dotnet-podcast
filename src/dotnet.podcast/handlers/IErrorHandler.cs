@@ -4,5 +4,5 @@ namespace dotnet.podcast.handlers;
 
 public interface IErrorHandler
 {
-    Task HandleErrors(IEnumerable<Error> errors);
+    void HandleErrors(IEnumerable<Error> errors);
 }

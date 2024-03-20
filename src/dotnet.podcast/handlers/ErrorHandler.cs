@@ -11,7 +11,7 @@ public class ErrorHandler : IErrorHandler
         _logger = logger;
     }
 
-    public async Task HandleErrors(IEnumerable<Error> errors)
+    public void HandleErrors(IEnumerable<Error> errors)
     {
         _logger.LogError("Errors encountered.");
         foreach (var er in errors.ToList())
