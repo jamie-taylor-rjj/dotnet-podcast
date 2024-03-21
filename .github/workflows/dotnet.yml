@@ -86,17 +86,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
-
-  sbom:
-    needs: [net8]
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        run: dotnet test --no-build --no-restore --verbosity normal
 
       - uses: anchore/sbom-action@v0
         with:
