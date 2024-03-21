@@ -16,56 +16,9 @@ on:
       - '**/*.md'
 
 jobs:
-
-#  net6:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#        with:
-#          fetch-depth: 0
-#
-#      - name: Setup .NET 6.x
-#        uses: actions/setup-dotnet@v4
-#        with:
-#          dotnet-version: '6.0.x'
-#
-#      - name: Install dependencies
-#        run: dotnet restore
-#
-#      - name: Build
-#        run: dotnet build --configuration Release --no-restore
-#        
-#      - name: Test
-#        run: dotnet test --no-restore --verbosity normal
-#
-#  net7:
-#    needs: net6
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#        with:
-#          fetch-depth: 0
-#
-#      - name: Setup .NET 7.x
-#        uses: actions/setup-dotnet@v4
-#        with:
-#          dotnet-version: '7.0.x'
-#
-#      - name: Install dependencies
-#        run: dotnet restore
-#
-#      - name: Build
-#        run: dotnet build --configuration Release --no-restore
-#
-#      - name: Test
-#        run: dotnet test --no-restore --verbosity normal
-
-  net8:
-#    needs: net7
+  
+  build-and-test:
+    
     runs-on: ubuntu-latest
 
     steps:
@@ -88,6 +41,10 @@ jobs:
       - name: Test
         run: dotnet test --no-restore --verbosity normal
 
+      ## note: this step exposes the fact that we end up building
+      ## the code base for all selected Target Framework Monikers
+      ## supplied in the main csproj's "TargetFrameworks" element.
+      ## As such, we only need to do one build job
       - uses: anchore/sbom-action@v0
         with:
           path: ./
