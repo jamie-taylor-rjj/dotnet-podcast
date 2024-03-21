@@ -1,8 +1,8 @@
-using dotnet.podcast.options;
+using dotnet.podcast.verbs;
 
 namespace dotnet.podcast.handlers;
 
 public interface ICreateHandler
 {
-    Task HandleCreate(CreateOptions opt);
+    Task HandleCreate(CreateVerb opt);
 }

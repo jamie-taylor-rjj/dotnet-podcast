@@ -1,5 +1,4 @@
 using System.IO.Abstractions;
-using dotnet.podcast.builders;
 using dotnet.podcast.extensions;
 using dotnet.podcast.helpers;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,22 +22,7 @@ public class ServiceCollectionExtensionsTests
         var fileSystem = sp.GetService<IFileSystem>();
         Assert.NotNull(fileSystem);
     }
-
-    [Fact]
-    public void AddBuilders_Adds_IProjectBuilder_To_ServiceCollection()
-    {
-        // Arrange
-        var services = new ServiceCollection().AddLogging(conf => conf.AddSerilog());
-
-        // Act
-        services.AddBuilders();
-
-        // Assert
-        var sp = services.BuildServiceProvider();
-        var projectBuilder = sp.GetService<IProjectBuilder>();
-        Assert.NotNull(projectBuilder);
-    }
-
+    
     [Fact]
     public void AddHelpers_Adds_IJsonSerializerHelpers_To_ServiceCollection()
     {
@@ -76,8 +60,7 @@ public class ServiceCollectionExtensionsTests
         var services = new ServiceCollection()
             .AddLogging(conf => conf.AddSerilog())
             .AddFileSystem()
-            .AddHelpers()
-            .AddBuilders();
+            .AddHelpers();
 
         // Act
         services.AddHandlers();
@@ -113,7 +96,6 @@ public class ServiceCollectionExtensionsTests
             .AddLogging(conf => conf.AddSerilog())
             .AddFileSystem()
             .AddHelpers()
-            .AddBuilders()
             .AddHandlers();
 
         // Act

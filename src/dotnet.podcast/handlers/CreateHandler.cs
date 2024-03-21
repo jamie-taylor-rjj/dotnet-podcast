@@ -1,9 +1,9 @@
 using System.IO.Abstractions;
 using Ardalis.GuardClauses;
-using dotnet.podcast.builders;
+using dotnet.podcast.extensions;
 using dotnet.podcast.helpers;
 using dotnet.podcast.models;
-using dotnet.podcast.options;
+using dotnet.podcast.verbs;
 
 namespace dotnet.podcast.handlers;
 
@@ -12,21 +12,21 @@ public class CreateHandler : ICreateHandler
     private readonly ILogger<CreateHandler> _logger;
     private readonly IFileSystem _fileSystem;
     private readonly IJsonSerializerHelpers _jsonSerializerHelpers;
-    private readonly IProjectBuilder _projectBuilder;
+    private readonly IFileHelpers _fileHelpers;
 
     public CreateHandler(
         ILogger<CreateHandler> logger,
         IFileSystem fileSystem,
         IJsonSerializerHelpers jsonSerializerHelpers,
-        IProjectBuilder projectBuilder)
+        IFileHelpers fileHelpers)
     {
         _logger = logger;
         _fileSystem = fileSystem;
         _jsonSerializerHelpers = jsonSerializerHelpers;
-        _projectBuilder = projectBuilder;
+        _fileHelpers = fileHelpers;
     }
 
-    public async Task HandleCreate(CreateOptions opt)
+    public async Task HandleCreate(CreateVerb opt)
     {
         Guard.Against.Null(opt);
         
@@ -49,8 +49,12 @@ public class CreateHandler : ICreateHandler
             "Creating new project, using {FileName} as {ProjectName} field",
             opt.FileName,
             nameof(Project.ProjectName));
-
-        var project = _projectBuilder.WithName(opt.FileName);
+        
+        var project = new Project()
+            .WithName(opt.FileName)
+            .WithFiles(_fileHelpers.GetAllRelevantFiles())
+            // TODO: replace this suboptimal code
+            .WithTargetArchiveName($"{opt.FileName.Replace(' ', '-')}.zip");
 
         await _fileSystem.File.WriteAllTextAsync(opt.FileName,
             _jsonSerializerHelpers.Serialise(project, nameof(Project)));
