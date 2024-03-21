@@ -65,7 +65,7 @@ jobs:
 #        run: dotnet test --no-restore --verbosity normal
 
   net8:
-    needs: net7
+#    needs: net7
     runs-on: ubuntu-latest
 
     steps:
