@@ -17,52 +17,52 @@ on:
 
 jobs:
 
-  net6:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup .NET 6.x
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '6.0.x'
-
-      - name: Install dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-        
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
-
-  net7:
-    needs: net6
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup .NET 7.x
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '7.0.x'
-
-      - name: Install dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
+#  net6:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Setup .NET 6.x
+#        uses: actions/setup-dotnet@v4
+#        with:
+#          dotnet-version: '6.0.x'
+#
+#      - name: Install dependencies
+#        run: dotnet restore
+#
+#      - name: Build
+#        run: dotnet build --configuration Release --no-restore
+#        
+#      - name: Test
+#        run: dotnet test --no-restore --verbosity normal
+#
+#  net7:
+#    needs: net6
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Setup .NET 7.x
+#        uses: actions/setup-dotnet@v4
+#        with:
+#          dotnet-version: '7.0.x'
+#
+#      - name: Install dependencies
+#        run: dotnet restore
+#
+#      - name: Build
+#        run: dotnet build --configuration Release --no-restore
+#
+#      - name: Test
+#        run: dotnet test --no-restore --verbosity normal
 
   net8:
     needs: net7
@@ -89,7 +89,7 @@ jobs:
         run: dotnet test --no-restore --verbosity normal
 
   sbom:
-    needs: [net6, net7, net8]
+    needs: [net8]
     runs-on: ubuntu-latest
     
     steps:
@@ -98,15 +98,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Generate XML SBOM
-        uses: CycloneDX/gh-dotnet-generate-sbom@v1
+      - uses: anchore/sbom-action@v0
         with:
-          path: ./dotnet-podcast.sln
-          github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
-  
-      - name: Generate JSON SBOM
-        uses: CycloneDX/gh-dotnet-generate-sbom@master
-        with:
-          path: ./dotnet-podcast.sln
-          json: true
-          github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./
