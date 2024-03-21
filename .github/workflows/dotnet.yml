@@ -87,3 +87,21 @@ jobs:
 
       - name: Test
         run: dotnet test --no-restore --verbosity normal
+
+  sbom:
+    needs: [net6, net7, net8]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Generate XML SBOM
+        uses: CycloneDX/gh-dotnet-generate-sbom@v1
+        with:
+          path: ./CycloneDX.sln
+          github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
+  
+      - name: Generate JSON SBOM
+        uses: CycloneDX/gh-dotnet-generate-sbom@master
+        with:
+          path: ./CycloneDX.sln
+          json: true
+          github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
