@@ -24,11 +24,16 @@ public class CustomParser : ICustomParser
     {
         Guard.Against.Null(args);
         
+        // We've chosen to disable this warning, as we're not writing to the args
+        // variable, we're reading from it. The warning was related to a run-time
+        // error which can happen when writing to a string[] which has been boxed
+        // to an object?[]
+        // ReSharper disable once CoVariantArrayConversion
         _logger.LogInformation("Parsing args {arguments}", args);
         
         await Parser.Default.ParseArguments<CreateVerb>(args)
             .MapResult(
-                (CreateVerb opts) => _createHandler.HandleCreate(opts),
+                opts => _createHandler.HandleCreate(opts),
                 errs => Task.Run(() => _errorHandler.HandleErrors(errs.ToList()))
             );
     }
