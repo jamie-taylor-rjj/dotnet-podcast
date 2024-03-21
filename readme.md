@@ -23,6 +23,8 @@ This project would not be possible without the following libraries. Please consi
 - [commandlineparser/commandline](https://github.com/commandlineparser/commandline)
 - [System.Io.Abstractions](https://www.nuget.org/packages/System.IO.Abstractions)
 - [Ardalis.GuardClauses](https://github.com/ardalis/GuardClauses)
+- [Anchore SBOM Action](https://github.com/marketplace/actions/anchore-sbom-action)
+  - This is used as a step in the GitHub actions to generate a JSON SBOM document 
 
 ## Building The Code
 
