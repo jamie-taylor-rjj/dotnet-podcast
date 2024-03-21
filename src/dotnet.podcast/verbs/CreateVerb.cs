@@ -1,10 +1,10 @@
 using CommandLine;
 
-namespace dotnet.podcast.options;
+namespace dotnet.podcast.verbs;
 
 [Verb("create",
        HelpText = "Used to create a podcast project file")]
-public class CreateOptions
+public class CreateVerb
 {
        [Option('f',
               "filename",

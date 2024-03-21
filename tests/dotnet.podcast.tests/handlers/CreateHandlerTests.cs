@@ -22,7 +22,7 @@ public class CreateHandlerTests
         const string targetFileName = "file.json";
         var mockedFileSystem = GenerateFileSystem(targetFileName);
         var handler = new CreateHandler(_mockedLogger, mockedFileSystem, _mockedSerializer, _mockedProjectBuilder);
-        var options = new CreateOptions { FileName = targetFileName };
+        var options = new CreateVerb { FileName = targetFileName };
         
         // Act
         await handler.HandleCreate(options);
@@ -37,7 +37,7 @@ public class CreateHandlerTests
         const string targetFileName = "file.json";
         var mockedFileSystem = GenerateFileSystem(targetFileName);
         var handler = new CreateHandler(_mockedLogger, mockedFileSystem, _mockedSerializer, _mockedProjectBuilder);
-        var options = new CreateOptions { FileName = targetFileName, Overwrite = true};
+        var options = new CreateVerb { FileName = targetFileName, Overwrite = true};
         
         // Act
         await handler.HandleCreate(options);

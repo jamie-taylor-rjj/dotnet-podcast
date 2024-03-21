@@ -1,7 +1,7 @@
 using Ardalis.GuardClauses;
 using CommandLine;
 using dotnet.podcast.handlers;
-using dotnet.podcast.options;
+using dotnet.podcast.verbs;
 
 namespace dotnet.podcast;
 
@@ -26,9 +26,9 @@ public class CustomParser : ICustomParser
         
         _logger.LogInformation("Parsing args {arguments}", args);
         
-        await Parser.Default.ParseArguments<CreateOptions>(args)
+        await Parser.Default.ParseArguments<CreateVerb>(args)
             .MapResult(
-                (CreateOptions opts) => _createHandler.HandleCreate(opts),
+                (CreateVerb opts) => _createHandler.HandleCreate(opts),
                 errs => Task.Run(() => _errorHandler.HandleErrors(errs.ToList()))
             );
     }

@@ -3,7 +3,7 @@ using Ardalis.GuardClauses;
 using dotnet.podcast.builders;
 using dotnet.podcast.helpers;
 using dotnet.podcast.models;
-using dotnet.podcast.options;
+using dotnet.podcast.verbs;
 
 namespace dotnet.podcast.handlers;
 
@@ -26,7 +26,7 @@ public class CreateHandler : ICreateHandler
         _projectBuilder = projectBuilder;
     }
 
-    public async Task HandleCreate(CreateOptions opt)
+    public async Task HandleCreate(CreateVerb opt)
     {
         Guard.Against.Null(opt);
         
