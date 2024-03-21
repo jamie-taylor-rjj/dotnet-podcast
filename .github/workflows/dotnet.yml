@@ -96,12 +96,12 @@ jobs:
       - name: Generate XML SBOM
         uses: CycloneDX/gh-dotnet-generate-sbom@v1
         with:
-          path: ./CycloneDX.sln
+          path: ./dotnet-podcast.sln
           github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
   
       - name: Generate JSON SBOM
         uses: CycloneDX/gh-dotnet-generate-sbom@master
         with:
-          path: ./CycloneDX.sln
+          path: ./dotnet-podcast.sln
           json: true
           github-bearer-token: ${{ secrets.GITHUB_TOKEN }}
