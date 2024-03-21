@@ -1,4 +1,3 @@
-using dotnet.podcast.builders;
 using dotnet.podcast.helpers;
 
 namespace dotnet.podcast.tests.handlers;
@@ -7,7 +6,7 @@ public class CreateHandlerTests
 {
     private readonly ILogger<CreateHandler> _mockedLogger = Substitute.For<ILogger<CreateHandler>>();
     private readonly IJsonSerializerHelpers _mockedSerializer = Substitute.For<IJsonSerializerHelpers>();
-    private readonly IProjectBuilder _mockedProjectBuilder = Substitute.For<IProjectBuilder>();
+    private readonly IFileHelpers _mockedFileHelpers = Substitute.For<IFileHelpers>();
 
     private static MockFileSystem GenerateFileSystem(string fileName) =>
         new(new Dictionary<string, MockFileData>
@@ -21,7 +20,7 @@ public class CreateHandlerTests
         // Arrange
         const string targetFileName = "file.json";
         var mockedFileSystem = GenerateFileSystem(targetFileName);
-        var handler = new CreateHandler(_mockedLogger, mockedFileSystem, _mockedSerializer, _mockedProjectBuilder);
+        var handler = new CreateHandler(_mockedLogger, mockedFileSystem, _mockedSerializer, _mockedFileHelpers);
         var options = new CreateVerb { FileName = targetFileName };
         
         // Act
@@ -36,8 +35,10 @@ public class CreateHandlerTests
         // Arrange
         const string targetFileName = "file.json";
         var mockedFileSystem = GenerateFileSystem(targetFileName);
-        var handler = new CreateHandler(_mockedLogger, mockedFileSystem, _mockedSerializer, _mockedProjectBuilder);
+        var handler = new CreateHandler(_mockedLogger, mockedFileSystem, _mockedSerializer, _mockedFileHelpers);
         var options = new CreateVerb { FileName = targetFileName, Overwrite = true};
+
+        _mockedFileHelpers.GetAllRelevantFiles().Returns(new List<string> { "test.mp3" });
         
         // Act
         await handler.HandleCreate(options);

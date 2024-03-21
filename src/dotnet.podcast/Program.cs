@@ -24,7 +24,6 @@ public class Program
             var services = new ServiceCollection()
                 .AddCustomParser()
                 .AddHelpers()
-                .AddBuilders()
                 .AddHandlers()
                 .AddFileSystem()
                 .AddLogging(conf => conf.AddSerilog())

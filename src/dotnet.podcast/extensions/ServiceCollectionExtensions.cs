@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.IO.Abstractions;
-using dotnet.podcast.builders;
 using dotnet.podcast.handlers;
 using dotnet.podcast.helpers;
 
@@ -21,13 +20,10 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddHelpers(this IServiceCollection services)
     {
-        return services.AddSingleton<IJsonSerializerHelpers, JsonSerializerHelpers>()
+        return services
+            .AddSingleton<IFileHelpers, FileHelpers>()
+            .AddSingleton<IJsonSerializerHelpers, JsonSerializerHelpers>()
             .AddSingleton<IJsonSerializerOptionsHelpers, JsonSerializerOptionsHelpers>();
-    }
-
-    public static IServiceCollection AddBuilders(this IServiceCollection services)
-    {
-        return services.AddSingleton<IProjectBuilder, ProjectBuilder>();
     }
 
     public static IServiceCollection AddFileSystem(this IServiceCollection services)
